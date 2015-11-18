@@ -28,6 +28,7 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.image.*;
 import java.util.ArrayList;
+import java.util.Vector;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -44,6 +45,14 @@ public class Arkanoid extends Canvas implements Stage, KeyListener, MouseListene
 	 * Serial para el extends
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	//vector de usuarios
+	public static Vector<String> usuarios = new Vector<String>();
+	
+	public Vector<String> getUsuarios() {
+		return usuarios;
+	}
+
 
 	/*
 	 * Definimos para leer el archivo de entrada que contendra el nivel que queremos leer para
@@ -219,6 +228,8 @@ public class Arkanoid extends Canvas implements Stage, KeyListener, MouseListene
 	 */
 	
 	public Arkanoid(){
+		agregarUsuarios(getUsuarios());
+		
 		/*
 		 * Creamos el sprite de las imagenes
 		 */
@@ -1136,6 +1147,13 @@ public class Arkanoid extends Canvas implements Stage, KeyListener, MouseListene
 		}
 
 		catch (InterruptedException e) { System.out.println(e.getMessage()); }
+	}
+	void agregarUsuarios(Vector<String> usuarios){
+		usuarios.add("tincho");
+		usuarios.add("eze");
+		usuarios.add("rolo");
+		usuarios.add("tuviega");
+		usuarios.add("7om");
 	}
 
 	

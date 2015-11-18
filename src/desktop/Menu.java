@@ -50,6 +50,7 @@ public class Menu {
 	 */
 	public static boolean musicaactiva=false;
 	
+	
 	/*
 	 * Activamos o desactivamos los sonidos de los efectos
 	 */
@@ -101,7 +102,7 @@ public class Menu {
 	/*
 	 * En el menu indica que tenemos selecionado, por defecto la primera
 	 */
-	public int seleccion=2;
+	public int seleccion=0;
 
 	/*
 	 * Controla si hay que pedir nombre al usuario o no
@@ -184,6 +185,22 @@ public class Menu {
 				continuar.setY(Stage.menuPrimeraFila);
 				continuar.paint(g);
 			}
+			else {
+				/*
+				 * Registrarse:
+				 */
+				Marco registrarse = new Marco(juego);
+				registrarse.setNombreSprite("menu/registrarse.gif");
+				if(seleccion==0){
+					registrarse.setNombreSprite("menu/Wregistrarse.gif"); 
+			
+				}
+				registrarse.setX(Stage.primeracolumna);
+				registrarse.setY(Stage.menuPrimeraFila);
+				registrarse.paint(g);
+				
+			}
+						
 			/*
 			 * Juego Nuevo:
 			 */
@@ -498,6 +515,22 @@ public class Menu {
 		 * Este seria el menu normal, sin entrar en ninguna opcion
 		 */
 		if(modogeneral){
+			if(seleccion==0)
+			{
+				if(preguntarnombre){
+					
+					 juego.nombre = JOptionPane.showInputDialog("Inserte su nombre para registrarse: ");
+					 if(this.esvip())
+					 {
+						// adasf
+						 JOptionPane.showMessageDialog(null, "Su usuario ya esta registrado en el Arkanoid");
+					 }
+					 else
+					 {
+						 Arkanoid.usuarios.add(juego.nombre);
+					 }
+				}
+			}
 			if(seleccion==1){
 				/*
 				 * Tiene que estar visible el continuar
@@ -707,7 +740,11 @@ public class Menu {
 	public void mouseMoved(MouseEvent arg0) {
 
 		if(arg0.getY()>=Stage.menuPrimeraFila && arg0.getY()<Stage.menuSegundaFila){
-			seleccion=1;
+			if(activarcontinuar)
+			{
+				seleccion=1;
+			}
+			else seleccion=0;
 		}
 		else if(arg0.getY()>=Stage.menuSegundaFila && arg0.getY()<Stage.menuTerceraFila){
 			seleccion=2;
@@ -770,7 +807,7 @@ public class Menu {
 				else if(seleccion<2){
 					seleccion=2;
 				}
-				else if(seleccion!=2 && seleccion!=3 && seleccion!=5 && seleccion!=6){
+				else if(seleccion!=1 &&seleccion!=2 && seleccion!=3 && seleccion!=5 && seleccion!=6){
 					seleccion=1;
 				}
 				
@@ -873,15 +910,13 @@ public class Menu {
 
 public boolean esvip(){
 		
-			 
-			if(juego.nombre.equals("tincho") || juego.nombre.equals("eze")|| juego.nombre.equals("rolo") || juego.nombre.equals("tuviega") || juego.nombre.equals("7om") ){
-					
-					return true;
-
+			for(String iterante:Arkanoid.usuarios){
+					if(iterante.equals(juego.nombre))	return true;
 			 }
-
+			if(seleccion!=0)
+			{
 			  JOptionPane.showMessageDialog(null, "Su usuario no esta registrado en nuestro Arkanoid\n Se ejecutara el modo demo");
-
+			}
 			return false;
 }
 
